@@ -17,7 +17,7 @@ parser.add_argument("percentage", help="Percentage to filter frame numbers.", ty
 args = parser.parse_args()
 
 frameList = dict()
-numberOfFiles = 0
+numberOfFiles = int()
 resultFile = 'frame_numbers_percentage_'+str(int(time.time()))+'.log'
 
 """
@@ -58,6 +58,8 @@ def parseFrameList( ):
     for frame in frameList:
         if framePercentage(float(frameList[frame]*100/numberOfFiles),float(args.percentage)):
             writeResult(frame)
+    print("Process Completed!")
+    print("Number of log files analized: " + str(numberOfFiles))
     print('Results can be found in the file ' + resultFile + '\n')
 
 
@@ -68,25 +70,23 @@ def writeResult( frame ):
     with open(resultFile, "a") as myfile:
         myfile.write(frame+",")
 
-def getFilesContent( ) :
-    """
-    Get all the log files in the folder passed as parameter to the script.
-    Then we read all the files and store the frame_numbers in a dictionary
-    """
-    for file in os.scandir(args.folder_path):
-        if file.name.startswith('result_'):
-            numberOfFiles += 1
-            p = Path(args.folder_path + "/" + file.name)
-            with p.open() as f:
-                data_content = f.readlines()
-            for i in range(len(data_content)):
-                data_content[i] = data_content[i].split(",")[0]
-                processFrame(data_content[i])
+
+"""
+Get all the log files in the folder passed as parameter to the script.
+Then we read all the files and store the frame_numbers in a dictionary
+"""
+for file in os.scandir(args.folder_path):
+    if file.name.startswith('result_'):
+        numberOfFiles += 1
+        p = Path(args.folder_path + "/" + file.name)
+        with p.open() as f:
+            data_content = f.readlines()
+        for i in range(len(data_content)):
+            data_content[i] = data_content[i].split(",")[0]
+            processFrame(data_content[i])
 
 
 """
-Call the functions that will get all file contents and then check if each 
-frame_number is inside the percentage passed.
+Call the function to check if each frame_number is inside the percentage passed.
 """
-getFilesContent()
 parseFrameList()
