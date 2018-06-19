@@ -1,7 +1,7 @@
 # job_interview
 
 
-In order to test the script I follow did two different tests.
+In order to test the script I used two different tests.
 
 ## First test
 Some log files where created in order to used them with the script. The expected result of the process is know for different  different values to the percentage so we know if the script is processing the logs correctly or not.
