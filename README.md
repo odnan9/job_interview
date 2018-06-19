@@ -1,6 +1,10 @@
 # job_interview
 
-In order to test the script I created some log files similar to what the script is expected to process.
+
+In order to test the script I follow did two different tests:
+First I created some log files to process and I know what the expected result must be for different values to the percentage.
+
+Second I created some random log files similar to what the script is expected to process.
 
 Using the bash script described in the question, I created another bash script to generate some random data.
 
